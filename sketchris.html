@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sketchris — Draw to Play Tetris</title>
+    <link rel="stylesheet" href="sketchris.css">
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>Sketchris</h1>
+            <div class="status">
+                <span>Score: <strong id="score">0</strong></span>
+                <span>Level: <strong id="level">1</strong></span>
+                <span>Lines: <strong id="lines">0</strong></span>
+            </div>
+        </header>
+
+        <main>
+            <section class="game">
+                <div class="board-col">
+                    <canvas id="board" width="240" height="480"></canvas>
+                    <div class="pad-grid">
+                        <button id="btnLeft" class="ctrl-btn" aria-label="Move Left">&#8592;</button>
+                        <div class="pad-wrap">
+                            <canvas id="pad" width="128" height="128"></canvas>
+                            <div id="padOverlay" class="overlay hidden">A piece is falling...<br/>Wait to draw the next one</div>
+                        </div>
+                        <button id="btnRight" class="ctrl-btn" aria-label="Move Right">&#8594;</button>
+
+                        <button id="btnSoft" class="ctrl-btn" aria-label="Soft Drop">&#8595;</button>
+                        <button id="btnRotate" class="ctrl-btn" aria-label="Rotate">&#8635;</button>
+                        <button id="btnHard" class="ctrl-btn" aria-label="Hard Drop">&#11015;</button>
+                    </div>
+                </div>
+                <div class="side">
+                    <div class="panel">
+                        <h2>Controls</h2>
+                        <ul>
+                            <li>←/→: Move</li>
+                            <li>↓: Soft drop</li>
+                            <li>Z / X / ↑: Rotate</li>
+                            <li>Space: Hard drop</li>
+                            <li>P: Pause</li>
+                        </ul>
+                    </div>
+                    <div class="panel mini-probs">
+                        <h2>Prediction</h2>
+                        <table id="probsTable">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <span>Model: <code>tetris_classifier.onnx</code></span>
+        </footer>
+    </div>
+
+    <audio id="sfxLock" src="static/assets/audio/Rock Impact 2.wav" preload="auto" playsinline></audio>
+    <audio id="sfxLine" src="static/assets/audio/Rubble Burst 3.wav" preload="auto" playsinline></audio>
+    <audio id="sfxSummon" src="static/assets/audio/Jug Unplug Button 1.wav" preload="auto" playsinline></audio>
+    <script src="sketchris.js"></script>
+    </body>
+    </html>
+
+
