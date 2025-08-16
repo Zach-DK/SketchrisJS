@@ -1,0 +1,61 @@
+# ---- Operating system files ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- Node / frontend (if added later) ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+dist/
+build/
+out/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.code-workspace
+
+# ---- Environment / secrets ----
+.env
+.env.*
+
+# ---- Data & large artifacts (keep source small) ----
+# If you need these, publish via Releases or external storage
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.tflite
+
+# Generated datasets or exports (uncomment if desired)
+# dataset/
+# exports/
+
+# ---- Misc ----
+*.log
+*.tmp
+*.swp
+*.swo
+

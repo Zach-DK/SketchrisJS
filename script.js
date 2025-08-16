@@ -89,9 +89,9 @@
     ort.env.wasm.numThreads = Math.min(4, (navigator.hardwareConcurrency || 2));
     let session;
     try {
-        session = await ort.InferenceSession.create('tetris_classifier.onnx', { executionProviders: ['webgl'] });
+        session = await ort.InferenceSession.create('tetris_classifier_fp16.onnx', { executionProviders: ['webgl'] });
     } catch (err) {
-        session = await ort.InferenceSession.create('tetris_classifier.onnx', { executionProviders: ['wasm'] });
+        session = await ort.InferenceSession.create('tetris_classifier_fp16.onnx', { executionProviders: ['wasm'] });
     }
 
     // Preprocess canvas -> Float32Array [1,1,128,128], normalized to [-1,1]
