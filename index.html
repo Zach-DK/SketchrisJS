@@ -3,57 +3,70 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SketchrisJS — ONNX Tetris Classifier</title>
-    <style>
-        body { font-family: system-ui, Arial, sans-serif; margin: 24px; background: #121212; color: #eaeaea; }
-        h1 { font-size: 18px; margin: 0 0 12px; }
-        .wrap { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-        .toolbox { display: grid; gap: 8px; }
-        canvas { background: #000; border: 1px solid #444; image-rendering: pixelated; }
-        button { background: #2b2b2b; color: #eaeaea; border: 1px solid #444; padding: 8px 12px; cursor: pointer; border-radius: 6px; }
-        button:hover { background: #333; }
-        label { font-size: 13px; }
-        input[type="range"] { width: 160px; }
-        table { border-collapse: collapse; min-width: 320px; }
-        th, td { padding: 6px 8px; border-bottom: 1px solid #333; }
-        .prob { width: 120px; height: 10px; background: #222; border-radius: 6px; overflow: hidden; }
-        .prob > span { display: block; height: 100%; background: linear-gradient(90deg, #39d353, #208b3a); }
-        .row-max { background: rgba(57, 211, 83, 0.08); }
-        .muted { color: #bbb; font-size: 12px; }
-    </style>
+    <title>Sketchris — Draw to Play Tetris</title>
+    <link rel="stylesheet" href="sketchris.css">
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 </head>
 <body>
-    <h1>SketchrisJS — Draw a Tetris piece (128×128)</h1>
-    <div class="wrap">
-        <div class="toolbox">
-            <canvas id="pad" width="128" height="128"></canvas>
-            <div>
-                <button id="predictBtn">Predict</button>
-                <button id="clearBtn">Clear</button>
+    <div class="app">
+        <header>
+            <h1>Sketchris</h1>
+            <div class="status">
+                <span>Score: <strong id="score">0</strong></span>
+                <span>Level: <strong id="level">1</strong></span>
+                <span>Lines: <strong id="lines">0</strong></span>
             </div>
-            <div>
-                <label>Brush size: <strong>2</strong> (fixed)</label>
-            </div>
-            <div>
-                <label><input id="invert" type="checkbox"> Invert before inference</label>
-            </div>
-            <div class="muted">Model: <code>tetris_classifier.onnx</code></div>
-        </div>
+        </header>
 
-        <div>
-            <div class="muted">Softmax probabilities</div>
-            <table id="probsTable">
-                <thead>
-                    <tr><th>Class</th><th>Prob</th><th></th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+        <main>
+            <section class="game">
+                <div class="board-col">
+                    <canvas id="board" width="240" height="480"></canvas>
+                    <div class="pad-grid">
+                        <button id="btnLeft" class="ctrl-btn" aria-label="Move Left">&#8592;</button>
+                        <div class="pad-wrap">
+                            <canvas id="pad" width="128" height="128"></canvas>
+                            <div id="padOverlay" class="overlay hidden">A piece is falling...<br/>Wait to draw the next one</div>
+                        </div>
+                        <button id="btnRight" class="ctrl-btn" aria-label="Move Right">&#8594;</button>
+
+                        <button id="btnSoft" class="ctrl-btn" aria-label="Soft Drop">&#8595;</button>
+                        <button id="btnRotate" class="ctrl-btn" aria-label="Rotate">&#8635;</button>
+                        <button id="btnHard" class="ctrl-btn" aria-label="Hard Drop">&#11015;</button>
+                    </div>
+                </div>
+                <div class="side">
+                    <div class="panel">
+                        <h2>Controls</h2>
+                        <ul>
+                            <li>←/→: Move</li>
+                            <li>↓: Soft drop</li>
+                            <li>Z / X / ↑: Rotate</li>
+                            <li>Space: Hard drop</li>
+                            <li>P: Pause</li>
+                        </ul>
+                    </div>
+                    <div class="panel mini-probs">
+                        <h2>Prediction</h2>
+                        <table id="probsTable">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <span>Model: <code>tetris_classifier.onnx</code></span>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <audio id="sfxLock" src="static/assets/audio/Rock Impact 2.wav" preload="auto" playsinline></audio>
+    <audio id="sfxLine" src="static/assets/audio/Rubble Burst 3.wav" preload="auto" playsinline></audio>
+    <audio id="sfxSummon" src="static/assets/audio/Jug Unplug Button 1.wav" preload="auto" playsinline></audio>
+    <script src="sketchris.js"></script>
+    </body>
+    </html>
 
 
