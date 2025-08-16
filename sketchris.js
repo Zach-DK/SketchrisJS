@@ -94,8 +94,8 @@
     ort.env.wasm.simd = true;
     ort.env.wasm.numThreads = Math.min(4, (navigator.hardwareConcurrency || 2));
     let session;
-    try { session = await ort.InferenceSession.create('tetris_classifier.onnx', { executionProviders: ['webgl'] }); }
-    catch { session = await ort.InferenceSession.create('tetris_classifier.onnx', { executionProviders: ['wasm'] }); }
+    try { session = await ort.InferenceSession.create('tetris_classifier_fp16.onnx', { executionProviders: ['webgl'] }); }
+    catch { session = await ort.InferenceSession.create('tetris_classifier_fp16.onnx', { executionProviders: ['wasm'] }); }
 
     function preprocessPad(){
         const img = padCtx.getImageData(0,0,PAD_SIZE,PAD_SIZE);
